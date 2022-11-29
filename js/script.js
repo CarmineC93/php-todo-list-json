@@ -9,25 +9,24 @@ createApp({
     },
     methods:{
         addTodo() {
-            const data = {
-              newTodo : {
-                    text : this.newTodo,
-                    done : false
-              } 
+            const data = {     
+                newTodo: this.newTodo
             };
 
             axios.post("server.php", data, {
                 headers: { "Content-Type" : "multipart/form-data"},
             }).then((resp) =>{
                 this.todoList = resp.data;
-                newTodo
+                this.newTodo = "";
             });
         },
-
     },
+
     created(){
+        console.log(this.newTodo);
+
         axios.get("server.php").then((resp) => {
-            console.log(resp);
+            this.todoList = resp.data;
         });
     }
 }).mount("#app");
