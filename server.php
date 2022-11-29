@@ -3,4 +3,10 @@
 $string = file_get_contents("todo.json");
 $todos = json_decode($string, true);
 
-var_dump($todos);
+if (isset($_POST["newTodo"])) {
+    $new_todo = $_POST["newTodo"];
+    $todos[] = $new_todo;
+}
+
+header("Content-Type: application/json");
+echo json_encode($todos);
