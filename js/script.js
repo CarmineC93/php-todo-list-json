@@ -10,6 +10,8 @@ createApp({
 
     },
     created(){
-
+        axios.get("server.php").then((resp) => {
+            console.log(resp);
+        });
     }
 }).mount("#app");
