@@ -10,7 +10,7 @@ createApp({
     methods:{
         addTodo() {
             const data = {     
-                newTodo: this.newTodo
+                text: this.newTodo,
             };
 
             axios.post("server.php", data, {
@@ -20,11 +20,32 @@ createApp({
                 this.newTodo = "";
             });
         },
+
+        markDone(index){
+            const data = {
+                toggleIndex: index,
+            };
+
+            axios.post("server.php", data, {
+                headers:{"Content-Type": "multipart/form-data"}
+            }).then((resp)  => {
+                this.todoList = resp.data;
+            });
+        },
+
+        deleteTask(index){
+            const data = {
+                deleteIndex: index,
+            };
+
+            axios.post("server.php", data, {
+                headers: {"Content-Type": "multipart/form-data"}
+            }).then((resp) => {
+                this.todoList = resp.data;
+            });
+        },
     },
-
     created(){
-        console.log(this.newTodo);
-
         axios.get("server.php").then((resp) => {
             this.todoList = resp.data;
         });
